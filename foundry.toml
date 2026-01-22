@@ -1,0 +1,59 @@
+[profile.default]
+src = "src"
+out = "out"
+script = "script"
+libs = ["dependencies"]
+ffi = true
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+
+solc = '0.8.29'
+evm_version = 'shanghai'
+use_literal_content = true
+extra_output = ["devdoc", "userdoc", "storagelayout"]
+fs_permissions = [{ access = "read-write", path = "./" }]
+
+[fmt]
+tab_width = 2
+line_length = 120
+bracket_spacing = true
+
+[rpc_endpoints]
+localhost = "http://localhost:8545"
+ethereum = "https://eth.llamarpc.com"
+ronin-mainnet = "https://api-archived.roninchain.com/rpc"
+sepolia = "https://eth-sepolia.api.onfinality.io/public"
+ronin-testnet = "https://saigon-archive.roninchain.com/rpc"
+
+[fuzz]
+runs = 256
+
+[invariant]
+runs = 256
+
+[dependencies]
+"fdk" = { version = "0.3.5-rc", url = "https://github.com/axieinfinity/foundry-deployment-kit/archive/refs/tags/v0.3.5-rc.zip" }
+"contract-libs" = { version = "0.1.6", url = "https://github.com/axieinfinity/contract-libs/archive/refs/tags/release-v0.1.6.zip" }
+"solady" = { version = "0.1.19", url = "https://github.com/Vectorized/solady/archive/refs/tags/v0.1.19.zip" }
+"openzeppelin-v5" = { version = "5.0.2", url = "https://github.com/OpenZeppelin/openzeppelin-contracts/archive/refs/tags/v5.0.2.zip" }
+"openzeppelin-v4" = { version = "4.9.5", url = "https://github.com/OpenZeppelin/openzeppelin-contracts/archive/refs/tags/v4.9.5.zip" }
+
+[soldeer]
+# whether soldeer manages remappings
+remappings_generate = false
+
+# whether soldeer re-generates all remappings when installing, updating or uninstalling deps
+remappings_regenerate = false
+
+# whether to suffix the remapping with the version: `name-a.b.c`
+remappings_version = true
+
+# a prefix to add to the remappings ("@" would give `@name`)
+remappings_prefix = "@"
+
+# where to store the remappings ("txt" for `remappings.txt` or "config" for `foundry.toml`)
+# ignored when `soldeer.toml` is used as config (uses `remappings.txt`)
+remappings_location = "txt"
+
+# whether to install sub-dependencies or not. If true this wil install the dependencies of dependencies 1 level down.
+recursive_deps = true

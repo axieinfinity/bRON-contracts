@@ -1,0 +1,6 @@
+@fdk/=dependencies/fdk-0.3.5-rc/script/
+forge-std/=dependencies/fdk-0.3.5-rc/dependencies/forge-std-1.9.5/src/
+@contract-libs/=dependencies/contract-libs-0.1.6/src/
+@solady/=dependencies/solady-0.1.19/src/
+@openzeppelin-v5/=dependencies/openzeppelin-v5-5.0.2/contracts/
+@openzeppelin-v4/=dependencies/openzeppelin-v4-4.9.5/contracts/

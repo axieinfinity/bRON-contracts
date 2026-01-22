@@ -1,0 +1,51 @@
+name: test
+
+on:
+  push:
+    branches:
+      - mainnet
+      - testnet
+      - 'feature/*'
+      - 'features/*'
+  pull_request:
+    branches:
+      - mainnet
+      - testnet
+      - 'feature/*'
+      - 'features/*'
+
+env:
+  FOUNDRY_PROFILE: ci
+
+jobs:
+  nodejs:
+      runs-on: [self-hosted, gke]
+    steps:
+      - name: "Checkout Repo"
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 #v3.0.2
+        with:
+          submodules: recursive
+
+      - name: "Setup Node"
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.4.1
+        with:
+          node-version: v18.18.0
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly-2b1f8d6dd90f9790faf0528e05e60e573a7569ce
+
+      - name: Update package
+        run: forge soldeer update
+
+      - name: Run Forge build
+        run: |
+          forge --version
+          forge build --sizes
+        id: build
+
+      - name: Run Forge tests
+        run: |
+          forge test -vvv
+        id: test

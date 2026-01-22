@@ -1,0 +1,34 @@
+[[dependencies]]
+name = "contract-libs"
+version = "0.1.6"
+url = "https://github.com/axieinfinity/contract-libs/archive/refs/tags/release-v0.1.6.zip"
+checksum = "7158d8d6677ab5ece0844f897b0515470f1eab3ac8e3a634b371c889ec0f1e70"
+integrity = "379f6a756afa3ecb05d8d0713b32cb526b492eb9551750fa11563c62a3256b15"
+
+[[dependencies]]
+name = "fdk"
+version = "0.3.5-rc"
+url = "https://github.com/axieinfinity/foundry-deployment-kit/archive/refs/tags/v0.3.5-rc.zip"
+checksum = "1b2a5c4cb7836463d821d79483d45594fcab2f96f0200641da52d14ccdd6ccbc"
+integrity = "a9a42316943b53d68a2dd135906632a264175585a0d4f9f50927228061a35b82"
+
+[[dependencies]]
+name = "openzeppelin-v4"
+version = "4.9.5"
+url = "https://github.com/OpenZeppelin/openzeppelin-contracts/archive/refs/tags/v4.9.5.zip"
+checksum = "fe249a9cb37b7a6664f8bfe61a9633873fbbb895e5d4c3fac78db50fd9af3a73"
+integrity = "590ed70cbd82f6a8ea6512d136626c3aa02a22433a4bf84664faaa463c397574"
+
+[[dependencies]]
+name = "openzeppelin-v5"
+version = "5.0.2"
+url = "https://github.com/OpenZeppelin/openzeppelin-contracts/archive/refs/tags/v5.0.2.zip"
+checksum = "ca49e0776066328da0087977864dfaef0d5e54a0ea9859236a7cd9ad02abb9e5"
+integrity = "6f8fc028520b958667ef1e96460c64140f42fef60ff02bc63110780c557b7c7e"
+
+[[dependencies]]
+name = "solady"
+version = "0.1.19"
+url = "https://github.com/Vectorized/solady/archive/refs/tags/v0.1.19.zip"
+checksum = "ba539a8802c5a5194f1839863de2a9d7e022323ca4094e53e730eedefe7c114d"
+integrity = "78677bdfe2484ac73a92158b14ee830a0ce5e671ce092048c40d311ff4b169f9"
