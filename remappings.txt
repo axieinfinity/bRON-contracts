@@ -1,6 +1,8 @@
-@fdk/=dependencies/fdk-0.3.5-rc/script/
-forge-std/=dependencies/fdk-0.3.5-rc/dependencies/forge-std-1.9.5/src/
-@contract-libs/=dependencies/contract-libs-0.1.6/src/
+@fdk/=dependencies/fdk-0.3.6-gamma/script/
+forge-std/=dependencies/fdk-0.3.6-gamma/dependencies/forge-std-1.9.5/src/
+@contract-libs/=dependencies/contract-libs-0.1.7/src/
 @solady/=dependencies/solady-0.1.19/src/
-@openzeppelin-v5/=dependencies/openzeppelin-v5-5.0.2/contracts/
-@openzeppelin-v4/=dependencies/openzeppelin-v4-4.9.5/contracts/
+@openzeppelin/contracts/=dependencies/openzeppelin-v4-4.9.5/contracts/
+@limitbreak-creator-token-standard-v5-5.0.0/=dependencies/creator-token-standard-v5-5.0.0/src/
+@limitbreak/permit-c/=dependencies/creator-token-standard-v5-5.0.0/lib/PermitC/src/
+@opensea/tstorish/=dependencies/tstorish-0.1.0/src/

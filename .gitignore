@@ -11,7 +11,21 @@ out/
 docs/
 
 # Dotenv file
-*.env
-node_modules/
+.env
 
+# Dependencies
 dependencies/
+
+# Soldeer lock file
+soldeer.lock
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
