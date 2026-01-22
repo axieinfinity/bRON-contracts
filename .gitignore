@@ -19,10 +19,6 @@ dependencies/
 # Soldeer lock file
 soldeer.lock
 
-# Logs
-logs/
-*.log
-
 # OS files
 .DS_Store
 

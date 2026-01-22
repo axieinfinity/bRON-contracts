@@ -1,0 +1,8 @@
+src/bRONTaxAuthority.sol:bRONTaxAuthority:_initialized (storage_slot: 0) (offset: 0) (type: uint8) (numberOfBytes: 1)
+src/bRONTaxAuthority.sol:bRONTaxAuthority:_initializing (storage_slot: 0) (offset: 1) (type: bool) (numberOfBytes: 1)
+src/bRONTaxAuthority.sol:bRONTaxAuthority:_roles (storage_slot: 1) (offset: 0) (type: mapping(bytes32 => struct AccessControl.RoleData)) (numberOfBytes: 32)
+src/bRONTaxAuthority.sol:bRONTaxAuthority:_roleMembers (storage_slot: 2) (offset: 0) (type: mapping(bytes32 => struct EnumerableSet.AddressSet)) (numberOfBytes: 32)
+src/bRONTaxAuthority.sol:bRONTaxAuthority:_nameFallback (storage_slot: 3) (offset: 0) (type: string) (numberOfBytes: 32)
+src/bRONTaxAuthority.sol:bRONTaxAuthority:_versionFallback (storage_slot: 4) (offset: 0) (type: string) (numberOfBytes: 32)
+src/bRONTaxAuthority.sol:bRONTaxAuthority:__gap (storage_slot: 5) (offset: 0) (type: uint256[50]) (numberOfBytes: 1600)
+src/bRONTaxAuthority.sol:bRONTaxAuthority:_taxBPSPerRanked (storage_slot: 55) (offset: 0) (type: uint256) (numberOfBytes: 32)
