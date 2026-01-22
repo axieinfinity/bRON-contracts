@@ -27,12 +27,7 @@ contract Migration is BaseMigration {
       param.bRONTaxAuthority.admin = admin;
       param.bRONTaxAuthority.operator = operator;
       param.bRONTaxAuthority.taxBPSArray = new uint16[](6);
-      param.bRONTaxAuthority.taxBPSArray[0] = 80_00; // Lunacian 80%
-      param.bRONTaxAuthority.taxBPSArray[1] = 70_00; // Pioneer 70%
-      param.bRONTaxAuthority.taxBPSArray[2] = 50_00; // Atia Seeker 50%
-      param.bRONTaxAuthority.taxBPSArray[3] = 30_00; // Chosen of Atia 30%
-      param.bRONTaxAuthority.taxBPSArray[4] = 15_00; // Atia Guardian 15%
-      param.bRONTaxAuthority.taxBPSArray[5] = 5_00; // Myth Keeper 5%
+      param.bRONTaxAuthority.taxBPSArray[0] = 100_00; // 100%
 
       param.bRON.owner = admin;
       param.bRON.taxTreasury = admin; // TODO: Must be set before deploying
