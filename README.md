@@ -1,10 +1,12 @@
-## Template Smart Contract Project
+## bRON (Bonded RON)
 
-This repository serves as a template for building robust and efficient smart contracts, providing developers with a structured foundation to accelerate the process of developing, testing and upgrading contracts.
+bRON is an ERC20 token backed 1:1 by WRON (Wrapped RON). The system implements a bonding curve mechanism with tax-based selling and a whitelisted spender system for authorized token spending.
 
 ## Documentation
 
-https://book.getfoundry.sh/
+- [Technical Overview](./docs/TECHNICAL_OVERVIEW.md) - Architecture, core contracts, and technical flows
+- [Spender Integration Guide](./docs/SPENDER_INTEGRATION.md) - How to integrate as a whitelisted spender
+- [Foundry Book](https://book.getfoundry.sh/) - Foundry framework documentation
 
 ## Usage
 
