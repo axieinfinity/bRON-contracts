@@ -26,7 +26,7 @@ contract Migration is BaseMigration {
       param.bRONTaxAuthority.admin = admin;
       // this is unlikely to be changed so we let admin be the operator to be safe
       param.bRONTaxAuthority.operator = admin;
-      param.bRONTaxAuthority.taxBPSArray = new uint16[](6);
+      param.bRONTaxAuthority.taxBPSArray = new uint16[](1);
       param.bRONTaxAuthority.taxBPSArray[0] = 100_00; // 100%
 
       param.bRON.owner = admin;
