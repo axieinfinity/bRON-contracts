@@ -45,11 +45,8 @@ contract bRON is Initializable, Ownable2Step, Pausable, ReentrancyGuard, ERC20C,
 
   function initialize(address owner_, address taxTreasury_, address transferValidator_) public initializer {
     _setNameSymbolAndDecimals("Bonded RON", "bRON", 18);
-    // Resolve cross-dependency issue by setting 0xdead in first initialization.
-    // Will set the actual tax authority after deploying the tax authority contract.
-    _setTaxAuthority(address(0xdead));
     _setTaxTreasury(taxTreasury_);
-    // In order to set transfer validator and set actual tax authority later, we need to hold the owner for a while.
+    // In order to set transfer validator later and set actual tax authority later, we need to hold the owner for a while.
     _transferOwnership(_msgSender());
 
     setTransferValidator(transferValidator_);
