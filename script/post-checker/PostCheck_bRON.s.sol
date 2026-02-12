@@ -14,11 +14,13 @@ contract PostCheck_bRON is BasePostChecker {
   address bob = makeAddr("bob");
   address charlie = makeAddr("charlie");
   ISharedArgument.bRONParameter public param;
+  ISharedArgument.bRONTaxAuthorityParameter public taxParam;
   bRONContract public bRON;
   ILegacyERC20 public WRON;
 
   function run() external {
     param = config.sharedArguments().bRON;
+    taxParam = config.sharedArguments().bRONTaxAuthority;
     bRON = bRONContract(address(config.getAddressFromCurrentNetwork(Contract.bRON.key())));
     WRON = ILegacyERC20(address(config.getAddressFromCurrentNetwork(DefaultContract.WRON.key())));
     _postCheck__Initializable();
@@ -43,13 +45,17 @@ contract PostCheck_bRON is BasePostChecker {
 
     address deployer = address(config.getSender());
     address owner = address(bRON.owner());
-    if (owner == deployer) {
+    address pendingOwner = address(bRON.pendingOwner());
+    if (pendingOwner == address(0)) {
+      // if there's no pending owner, the owner should be what we defined in the migration
+      assertEq(owner, param.owner, "Mismatch owner");
+    } else {
+      // if there's a pending owner, the pending owner should be the same as the param.owner, and the current owner should be the deployer
       console.log(
         "Warning: bRON owner is currently the deployer. This is expected for the first initialization. Awaiting acceptance of ownership from multisig."
       );
-      assertEq(address(bRON.pendingOwner()), param.owner, "Mismatch pending owner");
-    } else {
-      assertEq(owner, param.owner, "Mismatch owner");
+      assertEq(pendingOwner, param.owner, "Mismatch pending owner");
+      assertEq(owner, deployer, "Mismatch owner");
     }
   }
 
@@ -99,7 +105,10 @@ contract PostCheck_bRON is BasePostChecker {
     vm.prank(bob);
     bRON.sellTokens(1 ether, 0, "");
 
-    assertEq(WRON.balanceOf(address(bob)), 0); // 100% tax has been applied, so 0% left
+    uint256 taxBPS = taxParam.taxBPSArray[0];
+    uint256 expectedPairedOut = 1 ether * (10000 - taxBPS) / 10000;
+
+    assertEq(WRON.balanceOf(address(bob)), expectedPairedOut);
     assertEq(bRON.balanceOf(address(bob)), 0); // Bob has sold all his bRON
   }
 

@@ -21,15 +21,15 @@ contract bRONDeploy_Mainnet is Migration {
 
   function run() public onlyOn(DefaultNetwork.RoninMainnet.key()) {
     // deploy bRON and bRONTaxAuthority
-    bRONContract bRONContract = new bRONDeploy().run();
-    bRONTaxAuthorityContract bRONTaxAuthorityContract = new bRONTaxAuthorityDeploy().run();
+    bRONContract bRON = new bRONDeploy().run();
+    bRONTaxAuthorityContract bRONTaxAuthority = new bRONTaxAuthorityDeploy().run();
 
     ISharedArgument.bRONParameter memory bRONParam = config.sharedArguments().bRON;
 
     // set up transfer validator
     vm.startBroadcast(sender());
-    bRONContract.setTaxAuthority(address(bRONTaxAuthorityContract));
-    bRONContract.transferOwnership(bRONParam.owner);
+    bRON.setTaxAuthority(address(bRONTaxAuthority));
+    bRON.transferOwnership(bRONParam.owner);
     vm.stopBroadcast();
   }
 }
