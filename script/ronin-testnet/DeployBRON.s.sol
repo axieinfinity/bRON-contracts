@@ -24,28 +24,16 @@ contract bRONDeploy_Testnet is Migration {
     bRONContract bRON = new bRONDeploy().run();
     bRONTaxAuthorityContract bRONTaxAuthority = new bRONTaxAuthorityDeploy().run();
 
-    // initialize bRON
     ISharedArgument.bRONParameter memory bRONParam = config.sharedArguments().bRON;
 
-    // initialize bRONTaxAuthority
-    ISharedArgument.bRONTaxAuthorityParameter memory bRONTaxAuthorityParam = config.sharedArguments().bRONTaxAuthority;
+    // set up transfer validator
+    vm.startPrank(sender());
+    bRON.setTaxAuthority(address(bRONTaxAuthority));
+    bRON.transferOwnership(bRONParam.owner);
+    vm.stopPrank();
 
-    // set up creator token transfer validator
-    CreatorTokenTransferValidator creatorTokenTransferValidatorContract =
-      CreatorTokenTransferValidator(loadContract(Contract.CreatorTokenTransferValidator.key()));
-
-    vm.startBroadcast(sender());
-    bRON.initialize(bRONParam.owner, address(bRONTaxAuthority), bRONParam.taxTreasury);
-    bRONTaxAuthority.initialize(
-      bRONTaxAuthorityParam.admin, bRONTaxAuthorityParam.operator, bRONTaxAuthorityParam.taxBPSArray
-    );
-
-    bRON.setTransferValidator(address(creatorTokenTransferValidatorContract));
-    uint120 listId = creatorTokenTransferValidatorContract.createListCopy("bRON", 0);
-    creatorTokenTransferValidatorContract.applyListToCollection(address(bRON), listId);
-    creatorTokenTransferValidatorContract.setTokenTypeOfCollection(address(bRON), 20);
-    creatorTokenTransferValidatorContract.setTransferSecurityLevelOfCollection(address(bRON), 4, false, false, false);
-    vm.stopBroadcast();
+    vm.prank(bRONParam.owner);
+    bRON.acceptOwnership();
   }
 
   function _afterRunningScript() internal virtual override { }

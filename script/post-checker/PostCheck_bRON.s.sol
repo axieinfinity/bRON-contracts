@@ -58,7 +58,8 @@ contract PostCheck_bRON is BasePostChecker {
 
     vm.expectRevert();
     vm.prank(alice);
-    bRON.transfer(bob, 10 ether);
+    bool success = bRON.transfer(bob, 10 ether);
+    assertFalse(success, "Transfer should revert");
   }
 
   function _postCheck__NonTransferable_TransferFrom() internal onPostCheck("bRON_NonTransferable_TransferFrom") {
@@ -69,7 +70,8 @@ contract PostCheck_bRON is BasePostChecker {
 
     vm.expectRevert();
     vm.prank(charlie);
-    bRON.transferFrom(alice, bob, 10 ether);
+    bool success = bRON.transferFrom(alice, bob, 10 ether);
+    assertFalse(success, "TransferFrom should revert");
   }
 
   function _postCheck__BuyTokens() internal onPostCheck("bRON_BuyTokens") {
