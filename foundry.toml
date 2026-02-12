@@ -27,7 +27,7 @@ localhost = "http://localhost:8545"
 ethereum = "https://eth.llamarpc.com"
 ronin-mainnet = "https://api-archived.roninchain.com/rpc"
 sepolia = "https://eth-sepolia.api.onfinality.io/public"
-ronin-testnet = "https://saigon-archive.roninchain.com/rpc"
+ronin-testnet = "https://saigon-testnet.roninchain.com/rpc"
 
 [fuzz]
 runs = 256
