@@ -14,10 +14,14 @@ import { ERC20C } from "@limitbreak-creator-token-standard-v5-5.0.0/erc20c/ERC20
 import { IbRON } from "./interfaces/IbRON.sol";
 import { IERC20Spendable } from "./interfaces/IERC20Spendable.sol";
 import { IbRONTaxAuthority } from "./interfaces/IbRONTaxAuthority.sol";
+import {
+  CreatorTokenTransferValidator
+} from "@limitbreak-creator-token-standard-v5-5.0.0/utils/CreatorTokenTransferValidator.sol";
 
 contract bRON is Initializable, Ownable2Step, Pausable, ReentrancyGuard, ERC20C, IbRON {
   using Math for uint256;
 
+  uint8 public constant TRANSFER_SECURITY_LEVEL = 4;
   uint96 public constant override PAIRED_PRICE_PER_TOKEN_NUMERATOR = 10000_00;
   uint96 public constant override PAIRED_PRICE_PER_TOKEN_DENOMINATOR = 10000_00;
   uint16 public constant override BPS = 100_00;
@@ -39,11 +43,30 @@ contract bRON is Initializable, Ownable2Step, Pausable, ReentrancyGuard, ERC20C,
     _disableInitializers();
   }
 
-  function initialize(address owner_, address taxAuthority_, address taxTreasury_) public initializer {
+  function initialize(address owner_, address taxTreasury_, address transferValidator_) public initializer {
     _setNameSymbolAndDecimals("Bonded RON", "bRON", 18);
-    _setTaxAuthority(taxAuthority_);
+    // Resolve cross-dependency issue by setting 0xdead in first initialization.
+    // Will set the actual tax authority after deploying the tax authority contract.
+    _setTaxAuthority(address(0xdead));
     _setTaxTreasury(taxTreasury_);
-    _transferOwnership(owner_);
+    // In order to set transfer validator and set actual tax authority later, we need to hold the owner for a while.
+    _transferOwnership(_msgSender());
+
+    setTransferValidator(transferValidator_);
+    CreatorTokenTransferValidator transferValidator = CreatorTokenTransferValidator(transferValidator_);
+    uint120 listId = transferValidator.createListCopy("bRON", 0);
+    transferValidator.applyListToCollection({ collection: address(this), id: listId });
+    transferValidator.setTokenTypeOfCollection({ collection: address(this), tokenType: 20 });
+    transferValidator.setTransferSecurityLevelOfCollection({
+      collection: address(this),
+      level: TRANSFER_SECURITY_LEVEL,
+      disableAuthorizationMode: false,
+      disableWildcardOperators: false,
+      enableAccountFreezingMode: false
+    });
+
+    // Transfer the ownership of the list to real owner, but still hold the contract owner for a while.
+    transferValidator.reassignOwnershipOfList(listId, owner_);
   }
 
   modifier nonZeroAmount(uint256 amount) {

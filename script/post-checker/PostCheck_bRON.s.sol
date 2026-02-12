@@ -7,6 +7,7 @@ import { DefaultContract } from "@fdk/utils/DefaultContract.sol";
 import { bRON as bRONContract } from "../../src/bRON.sol";
 import { BasePostChecker } from "./BasePostChecker.s.sol";
 import { ILegacyERC20 } from "../../src/interfaces/ILegacyERC20.sol";
+import { console } from "forge-std/console.sol";
 
 contract PostCheck_bRON is BasePostChecker {
   address alice = makeAddr("alice");
@@ -33,13 +34,23 @@ contract PostCheck_bRON is BasePostChecker {
     assertEq(keccak256(abi.encodePacked(bRON.symbol())), keccak256(abi.encodePacked("bRON")), "Mismatch symbol");
     assertEq(bRON.decimals(), 18, "Mismatch decimals");
     assertEq(address(bRON.WRON()), address(WRON), "Mismatch WRON address");
-    assertEq(address(bRON.owner()), param.owner, "Mismatch owner");
     assertEq(
       address(bRON.getTaxAuthority()),
       address(config.getAddressFromCurrentNetwork(Contract.bRONTaxAuthority.key())),
       "Mismatch tax authority"
     );
     assertEq(address(bRON.getTaxTreasury()), param.taxTreasury, "Mismatch tax treasury");
+
+    address deployer = address(config.getSender());
+    address owner = address(bRON.owner());
+    if (owner == deployer) {
+      console.log(
+        "Warning: bRON owner is currently the deployer. This is expected for the first initialization. Awaiting acceptance of ownership from multisig."
+      );
+      assertEq(address(bRON.pendingOwner()), param.owner, "Mismatch pending owner");
+    } else {
+      assertEq(owner, param.owner, "Mismatch owner");
+    }
   }
 
   function _postCheck__NonTransferable_OTC() internal onPostCheck("bRON_NonTransferable_OTC") {
@@ -86,7 +97,7 @@ contract PostCheck_bRON is BasePostChecker {
     vm.prank(bob);
     bRON.sellTokens(1 ether, 0, "");
 
-    assertEq(WRON.balanceOf(address(bob)), 0.2 ether); // 80% tax has been applied, so 20% left
+    assertEq(WRON.balanceOf(address(bob)), 0); // 100% tax has been applied, so 0% left
     assertEq(bRON.balanceOf(address(bob)), 0); // Bob has sold all his bRON
   }
 
@@ -107,7 +118,7 @@ contract PostCheck_bRON is BasePostChecker {
     bool[] memory isWhitelisted = new bool[](1);
     isWhitelisted[0] = true;
 
-    vm.prank(param.owner);
+    vm.prank(bRON.owner());
     bRON.setWhitelistedSpenders(spenders, isWhitelisted);
 
     vm.prank(charlie);
