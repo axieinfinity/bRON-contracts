@@ -34,8 +34,10 @@ contract bRONDeploy_Mainnet is Migration {
     CreatorTokenTransferValidator creatorTokenTransferValidatorContract =
       CreatorTokenTransferValidator(loadContract(Contract.CreatorTokenTransferValidator.key()));
 
-    vm.startBroadcast(sender());
-    bRON.initialize(bRONParam.owner, address(bRONTaxAuthority), bRONParam.taxTreasury);
+    address deployer = address(sender());
+
+    vm.startBroadcast(deployer);
+    bRON.initialize(deployer, address(bRONTaxAuthority), bRONParam.taxTreasury);
     bRONTaxAuthority.initialize(
       bRONTaxAuthorityParam.admin, bRONTaxAuthorityParam.operator, bRONTaxAuthorityParam.taxBPSArray
     );
@@ -45,6 +47,8 @@ contract bRONDeploy_Mainnet is Migration {
     creatorTokenTransferValidatorContract.applyListToCollection(address(bRON), listId);
     creatorTokenTransferValidatorContract.setTokenTypeOfCollection(address(bRON), 20);
     creatorTokenTransferValidatorContract.setTransferSecurityLevelOfCollection(address(bRON), 4, false, false, false);
+
+    bRON.transferOwnership(bRONParam.owner);
     vm.stopBroadcast();
   }
 

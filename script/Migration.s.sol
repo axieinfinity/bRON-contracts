@@ -22,21 +22,15 @@ contract Migration is BaseMigration {
       // Undefined
     } else if (network() == DefaultNetwork.RoninMainnet.key()) {
       address admin = 0x9D05D1F5b0424F8fDE534BC196FFB6Dd211D902a;
-      address operator = address(0); // TODO: Must be set before deploying
 
       param.bRONTaxAuthority.admin = admin;
-      param.bRONTaxAuthority.operator = operator;
-      param.bRONTaxAuthority.taxBPSArray = new uint16[](6);
+      // this is unlikely to be changed so we let admin be the operator to be safe
+      param.bRONTaxAuthority.operator = admin;
+      param.bRONTaxAuthority.taxBPSArray = new uint16[](1);
       param.bRONTaxAuthority.taxBPSArray[0] = 100_00; // 100%
 
       param.bRON.owner = admin;
-      param.bRON.taxTreasury = admin; // TODO: Must be set before deploying
-
-      param.creatorTokenTransferValidatorConfiguration.owner = admin;
-      param.creatorTokenTransferValidatorConfiguration.nativeValueToCheckPauseState = 1000 ether;
-      param.creatorTokenTransferValidator.owner = admin;
-      param.creatorTokenTransferValidator.name = "CreatorTokenTransferValidator";
-      param.creatorTokenTransferValidator.version = "5.0.0";
+      param.bRON.taxTreasury = 0x22cEfc91E9b7c0f3890eBf9527EA89053490694e; // Ronin Treasury
 
       param.bRONSpenderMock.admin = admin;
       param.bRONSpenderMock.treasury = admin;
@@ -45,14 +39,8 @@ contract Migration is BaseMigration {
 
       param.bRONTaxAuthority.admin = admin;
       param.bRONTaxAuthority.operator = admin; // need to be replaced
-      param.bRONTaxAuthority.taxBPSArray = new uint16[](6);
-      param.bRONTaxAuthority.taxBPSArray[0] = 80_00; // Lunacian 80%
-      param.bRONTaxAuthority.taxBPSArray[1] = 70_00; // Pioneer 70%
-      param.bRONTaxAuthority.taxBPSArray[2] = 50_00; // Atia Seeker 50%
-      param.bRONTaxAuthority.taxBPSArray[3] = 30_00; // Chosen of Atia 30%
-      param.bRONTaxAuthority.taxBPSArray[4] = 15_00; // Atia Guardian 15%
-      param.bRONTaxAuthority.taxBPSArray[5] = 5_00; // Myth Keeper 5%
-
+      param.bRONTaxAuthority.taxBPSArray = new uint16[](1);
+      param.bRONTaxAuthority.taxBPSArray[0] = 100_00; // 100%
       param.bRON.owner = admin;
       param.bRON.taxTreasury = admin;
 
