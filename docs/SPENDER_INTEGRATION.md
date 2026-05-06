@@ -5,39 +5,39 @@ This guide explains how to integrate your smart contract as a whitelisted spende
 ## Table of Contents
 
 - [bRON Spender Integration Guide](#bron-spender-integration-guide)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-    - [Step 1: Install Foundry](#step-1-install-foundry)
-    - [Step 2: Initialize Your Project](#step-2-initialize-your-project)
-    - [Step 3: Install bRON Dependencies](#step-3-install-bron-dependencies)
-    - [Step 5: Build Your Project](#step-5-build-your-project)
-  - [Quick Start](#quick-start)
-    - [Inherit `bRONSpenderUpgradeable`](#inherit-bronspenderupgradeable)
-  - [Core Interface](#core-interface)
-    - [`IERC20Spendable`](#ierc20spendable)
-    - [`IbRONSpender`](#ibronspender)
-  - [Integration Steps](#integration-steps)
-    - [Step 1: Deploy Your Spender Contract](#step-1-deploy-your-spender-contract)
-    - [Step 2: Get Whitelisted](#step-2-get-whitelisted)
-    - [Step 3: User Approval Flow](#step-3-user-approval-flow)
-  - [Using `bRONSpenderUpgradeable`](#using-bronspenderupgradeable)
-    - [`_spendBRON` Function](#_spendbron-function)
-    - [`_updateBRON` Function](#_updatebron-function)
-  - [Fallback Mechanism](#fallback-mechanism)
-  - [Complete Example: Marketplace Contract](#complete-example-marketplace-contract)
-  - [User Flow (Frontend Perspective)](#user-flow-frontend-perspective)
-    - [1. Check Allowance](#1-check-allowance)
-    - [2. Approve Spending](#2-approve-spending)
-    - [3. Execute Spend Action](#3-execute-spend-action)
-  - [Error Handling](#error-handling)
-    - [Common Errors](#common-errors)
-    - [Checking Before Spending](#checking-before-spending)
-  - [Security Best Practices](#security-best-practices)
-  - [Testing](#testing)
-  - [Contract Addresses](#contract-addresses)
-  - [Support](#support)
+	- [Table of Contents](#table-of-contents)
+	- [Overview](#overview)
+	- [Prerequisites](#prerequisites)
+	- [Installation](#installation)
+		- [Step 1: Install Foundry](#step-1-install-foundry)
+		- [Step 2: Initialize Your Project](#step-2-initialize-your-project)
+		- [Step 3: Install bRON Dependencies](#step-3-install-bron-dependencies)
+		- [Step 5: Build Your Project](#step-5-build-your-project)
+	- [Quick Start](#quick-start)
+		- [Inherit `bRONSpenderUpgradeable`](#inherit-bronspenderupgradeable)
+	- [Core Interface](#core-interface)
+		- [`IERC20Spendable`](#ierc20spendable)
+		- [`IbRONSpender`](#ibronspender)
+	- [Integration Steps](#integration-steps)
+		- [Step 1: Deploy Your Spender Contract](#step-1-deploy-your-spender-contract)
+		- [Step 2: Get Whitelisted](#step-2-get-whitelisted)
+		- [Step 3: User Approval Flow](#step-3-user-approval-flow)
+	- [Using `bRONSpenderUpgradeable`](#using-bronspenderupgradeable)
+		- [`_spendBRON` Function](#_spendbron-function)
+		- [`_updateBRON` Function](#_updatebron-function)
+	- [Fallback Mechanism](#fallback-mechanism)
+	- [Complete Example: Marketplace Contract](#complete-example-marketplace-contract)
+	- [User Flow (Frontend Perspective)](#user-flow-frontend-perspective)
+		- [1. Check Allowance](#1-check-allowance)
+		- [2. Approve Spending](#2-approve-spending)
+		- [3. Execute Spend Action](#3-execute-spend-action)
+	- [Error Handling](#error-handling)
+		- [Common Errors](#common-errors)
+		- [Checking Before Spending](#checking-before-spending)
+	- [Security Best Practices](#security-best-practices)
+	- [Testing](#testing)
+	- [Contract Addresses](#contract-addresses)
+	- [Support](#support)
 
 ---
 
@@ -528,8 +528,9 @@ function testSpendBRON() public {
 
 | Contract | Testnet | Mainnet |
 |----------|---------|---------|
-| bRON | TBD | TBD |
-| WRON | TBD | TBD |
+| bRON | 0x232CF242386b3CD52b56a51B86043e810FC85a29 | 0x05312a7699F51FA669462990EDC1fe86F02cf365 |
+| TaxAuthority | 0x7946f4Bb00b7EC74635FaE4Dc9Adb4F1399b7fFC | 0x0933cB48b5afbc8E67f94F4dd3B6e44369d3485D |
+| WRON | 0xA959726154953bAe111746E265E6d754F48570E6 | 0xe514d9DEB7966c8BE0ca922de8a064264eA6bcd4 |
 
 ---
 
